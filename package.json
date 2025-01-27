@@ -4,12 +4,11 @@
   "description": "A sample pnpm workspace with a12n-server and Next.js app",
   "main": "index.js",
   "scripts": {
-    "postinstall": "pnpm run -r app:build && pnpm run -r build",
-    "build:server": "pnpm run -r build",
-    "start": "concurrently \"pnpm start:app\" \"pnpm start\"",
-    "start:app": "pnpm -r app:dev",
-    "start:server": "pnpm run -r start",
-    "lint": "pnpm run -r fix && pnpm run -r app:lint"
+    "start:client": "pnpm --filter \"client\" dev",
+    "start:server": "pnpm --filter \"a12n-server\" start",
+    "build:server": "pnpm --filter \"a12n-server\" build",
+    "build": "pnpm --filter \"client\" build && pnpm build:server ",
+    "lint": "pnpm --filter \"a12n-server\" fix && pnpm --filter \"app\" lint"
   },
   "keywords": [],
   "author": "usrrname",
