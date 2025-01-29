@@ -1,6 +1,6 @@
 # pnpm workspace with @curveball/a12n-server and Next.js
 
-This is a simple example of how to use `@curveball/a12n-server` with a Next.js project.
+This is a simple example of how to use `@curveball/a12n-server` with a Next.js project using the authorization code flow.
 
 ## Getting Started
 
@@ -19,6 +19,7 @@ In separate Terminal tabs:
 In `client/.env` :
 ```
 NEXT_API_BASE_URL=http://localhost:8531/
+NEXTAUTH_URL=https://example.com # canonical url of your website
 
 AUTH_SECRET= # `npx auth secret` or `openssl rand -hex 32`
 AUTH_AUTH0_SECRET=
