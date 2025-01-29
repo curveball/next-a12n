@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with:
 - [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app)
-- [next-auth](https://next-auth.js.org/) 5 aka. [`auth.js`](https://authjs.dev/) 
+- [next-auth](https://next-auth.js.org/) v5 /latest beta 5 aka. [`auth.js`](https://authjs.dev/) 
 
 ## Getting Started
 

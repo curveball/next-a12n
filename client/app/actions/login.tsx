@@ -1,3 +1,6 @@
+import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const loginSchema = z.object({
@@ -10,7 +13,7 @@ const loginSchema = z.object({
 })
 
 export async function login(formData: FormData) {
-
+    "use server"
     const validatedFields = loginSchema.safeParse({
         userName: formData.get('userName'),
         password: formData.get('password')
@@ -18,5 +21,13 @@ export async function login(formData: FormData) {
     if (!validatedFields.success) {
         return { error: validatedFields.error.errors }
     }
-    // TODO: implement login
+
+    try {
+        await signIn("credentials", formData)
+    } catch (error) {
+        if (error instanceof AuthError) {
+            return redirect(`${NEXT_SIGNIN_ERROR_URL}?error=${error.type}`)
+        }
+        throw error
+    }
 }
