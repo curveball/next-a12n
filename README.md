@@ -20,21 +20,10 @@ In `client/.env` :
 ```
 NEXT_API_BASE_URL=http://localhost:8531/
 NEXTAUTH_URL=https://example.com # canonical url of your website
+NEXT_ERROR_REDIRECT_URL=https://example.com/error # where to redirect on login error
 
 AUTH_SECRET= # `npx auth secret` or `openssl rand -hex 32`
 AUTH_AUTH0_SECRET=
 AUTH_AUTH0_ISSUER=
-
-AUTH_FACEBOOK_ID=
-AUTH_FACEBOOK_SECRET=
-
-AUTH_GITHUB_ID=
-AUTH_GITHUB_SECRET=
-
-AUTH_GOOGLE_ID=
-AUTH_GOOGLE_SECRET=
-
-AUTH_TWITTER_ID=
-AUTH_TWITTER_SECRET=
 ```
 
