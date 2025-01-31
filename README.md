@@ -19,11 +19,10 @@ In separate Terminal tabs:
 In `client/.env` :
 ```
 NEXT_API_BASE_URL=http://localhost:8531/
+NEXTAUTH_URL_INTERNAL=http://localhost:8531/
 NEXTAUTH_URL=https://example.com # canonical url of your website
+NEXT_SIGNIN_ERROR_URL=http://localhost:8531/
 NEXT_ERROR_REDIRECT_URL=https://example.com/error # where to redirect on login error
-
-AUTH_SECRET= # `npx auth secret` or `openssl rand -hex 32`
-AUTH_AUTH0_SECRET=
-AUTH_AUTH0_ISSUER=
+NEXT_AUTH_SECRET= # `npx auth secret` or `openssl rand -hex 32`
 ```
 
