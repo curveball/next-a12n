@@ -4,7 +4,7 @@ HTTP POST `/register`
 
 Request body:
 
-```json
+```ts
 {
     "email": string,
     "password": string,
@@ -42,15 +42,27 @@ Headers:
 
 - POST `/register/mfa`
 
+### Request Body
+```
+{
+  "mfaDevice": "totp" | "yubikey",
+}
+```
+
+### Responses
+
+303 Redirect 
+
+```ts
+Location: /register/mfa/totp|webauthn
+```
 
 - POST `/register/user`
 
 ### Request Body
 
-```json
+```ts
 {
-  "mfaDevice": "totp" | "yubikey",
-   
   "username": string,
   "password": string,
   "email": string,
