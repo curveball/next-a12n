@@ -19,7 +19,7 @@ In separate Terminal tabs:
 In `client/.env` :
 ```
 NEXT_API_BASE_URL=http://localhost:8531/
-NEXTAUTH_URL_INTERNAL=http://localhost:8531/
+NEXTAUTH_URL_INTERNAL=http://localhost:8531/ # internal url of your a12n-server for development purposes
 NEXTAUTH_URL=https://example.com # canonical url of your website
 NEXT_SIGNIN_ERROR_URL=http://localhost:8531/
 NEXT_ERROR_REDIRECT_URL=https://example.com/error # where to redirect on login error
