@@ -23,10 +23,10 @@ export async function login(formData: FormData) {
     }
 
     try {
-        await signIn("credentials", formData)
+        await signIn("a12n-server", formData)
     } catch (error) {
         if (error instanceof AuthError) {
-            return redirect(`${NEXT_SIGNIN_ERROR_URL}?error=${error.type}`)
+            return redirect(`${process.env.NEXT_ERROR_URL}?error=${error.type}`)
         }
         throw error
     }
