@@ -1,5 +1,5 @@
 {
-  "name": "pnpm-a12n-server-next",
+  "name": "next-a12n",
   "version": "1.0.0",
   "description": "A sample pnpm workspace with a12n-server and Next.js app",
   "main": "index.js",
