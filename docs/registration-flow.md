@@ -2,21 +2,32 @@
 
 HTTP POST `/register` 
 
+Request body:
+
 ```json
+{
     "email": string,
     "password": string,
     "redirectUri": string,
     "state"?: string
+    "code": string # nextauth code
+}
 ```
 
 ### Responses
 
 - 303 Successful Registration with Continue URL
+
 ```json
-Status Code: 303
-Location: CONTINUE_URL
+{
+  "continue": "CONTINUE_URL"
+}
+Headers:
+    Location: CONTINUE_URL
 ```
+
 - 303 Successful Registration without Continue URL
+  
 ```json
 Location: /login?msg=Registration+successful.+Please+log+in
 ```
@@ -29,7 +40,28 @@ Headers:
 
 ## MFA Registration
 
-POST `/register/mfa`
+- POST `/register/mfa`
+
+
+- POST `/register/user`
+
+### Request Body
+
+```json
+{
+  "mfaDevice": "totp" | "yubikey",
+   
+  "username": string,
+  "password": string,
+  "email": string,
+  "firstName"?: string,
+  "lastName"?: string,
+  "addMfa": boolean,
+}
+``` 
+
+### Responses
+
 
 - 303: MFA Enabled and Requested
 
@@ -42,3 +74,14 @@ Session Data:
   "registerContinueUrl": "CONTINUE_URL"
 }
 ```
+- 303: Redirect: Invalid token
+
+```json
+/register/mfa/totp?error=Invalid+token'
+```
+
+- 303: Redirect: Unknown MFA Device 
+
+```json
+ '/register/mfa?error=Unknown MFA device'
+``` 

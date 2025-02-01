@@ -5,9 +5,9 @@ sequenceDiagram
     participant Client as Application <br/> (nextjs)
     participant a12nServer as Auth Server <br/>(a12n-server)
     
-    User->>Client: Clicks "Sign In" button
+    User->>Client: Clicks "Register" button
 
-    Client-->>a12nServer: <<HttpRequest>> POST <br/> POST /authorize
+    Client-->>a12nServer: <<HttpRequest>> POST <br/> POST /register
 
     critical [authorize]
         option [HTTP 200 OK]
