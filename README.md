@@ -26,3 +26,7 @@ NEXT_ERROR_REDIRECT_URL=https://example.com/error # where to redirect on login e
 NEXT_AUTH_SECRET= # `npx auth secret` or `openssl rand -hex 32`
 ```
 
+# Related Reading
+
+- On [migrating from next-auth 4 to 5](https://authjs.dev/getting-started/migrating-to-v5)
+
