@@ -20,6 +20,7 @@ In `client/.env` :
 ```
 NEXTAUTH_URL=http://localhost:8531 # canonical url of your website
 NEXTAUTH_CLIENT_ID= # client id from your a12n-server
+NEXTAUTH_ERROR_URL=http://localhost:8531/login?continue= # url to redirect to on login error
 AUTH_URL=http://localhost:8531 # internal url of your a12n-server for development purposes
 AUTH_SECRET= # `npx auth secret` or `openssl rand -hex 32`
 ```
