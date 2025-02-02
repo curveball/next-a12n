@@ -8,9 +8,9 @@ export async function login() {
         await signIn("a12n-server")
     } catch (error) {
         if (error instanceof AuthError) {
-            return redirect(`${process.env.NEXTAUTH_ERROR_URL}`)
+            return redirect(`${process.env.A12N_URL}/login?continue=`)
         }
     } finally {
-        return redirect(`${process.env.NEXTAUTH_URL}/api/auth/signin/a12n-server`)
+        return redirect(`${process.env.A12N_URL} /api/auth / signin / a12n - server`)
     }
 }

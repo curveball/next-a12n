@@ -1,12 +1,20 @@
-# pnpm workspace with @curveball/a12n-server and Next.js
+# @curveball/a12n-server and Next.js
 
-This is a simple example of how to use `@curveball/a12n-server` with a Next.js project using the authorization code flow.
+This is a simple example of how to use `@curveball/a12n-server` with a Next.js project using  OAuth2 authorization code flow.
+
+Pre-requisites:
+- `pnpm` 
+- node >= 20
 
 ## Getting Started
 
 From this repo root: 
 
+From this repo root: 
+
 `pnpm install` to install dependencies.
+
+`git submodule update --rebase` to update the `@curveball/a12n-server` submodule.
 
 In separate Terminal tabs:
 
@@ -15,6 +23,8 @@ In separate Terminal tabs:
 `pnpm start:client` Next will open at `http://localhost:3000/`
 
 `pnpm lint` to lint all projects
+
+From within project folders, running pnpm <command> from the respective `package.json` scripts will run the projects.
 
 From within project folders, running pnpm <command> from the respective `package.json` scripts will run the projects.
 
@@ -27,6 +37,7 @@ A12N_CLIENT_ID= # client id from your a12n-server
 A12N_CLIENT_SECRET= # client id from your a12n-server
 AUTH_SECRET= # `npx auth secret` or `openssl rand -hex 32`
 ```
+Environment variables prefixed with `AUTH_` are used by `authjs/next-auth` [2]
 
 
 ## Setting up a12n-server
@@ -66,8 +77,6 @@ Our manually create the client by following the steps below:
 
 ![screenshot of page for registering a new client-side application on a12n-server](./docs/img/create-new-client-2.png)
 
-http://localhost:8531/app/:app_id/client
-
 You will need to provide the:
 - client name (this will become your `NEXTAUTH_CLIENT_ID`) 
 - client URL (`NEXTAUTH_URL`). 
@@ -97,5 +106,7 @@ You can always change configurations by going to `http://localhost:8531/app/:app
 
 # Related Reading
 
-- On [migrating from next-auth 4 to 5](https://authjs.dev/getting-started/migrating-to-v5)
+# Resources
 
+1: ["Upgrade Guide (NextAuth.js v5)"](https://authjs.dev/getting-started/migrating-to-v5)
+2: ["Environment Variable Inference"](https://authjs.dev/reference/nextjs#:~:text=next%2Dauth%40beta-,Environment%20variable%20inference,-NEXTAUTH_URL%20and%20NEXTAUTH_SECRET)
