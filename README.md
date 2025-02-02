@@ -4,6 +4,8 @@ This is a simple example of how to use `@curveball/a12n-server` with a Next.js p
 
 ## Getting Started
 
+From this repo root: 
+
 `pnpm install` to install dependencies.
 
 In separate Terminal tabs:
@@ -13,6 +15,8 @@ In separate Terminal tabs:
 `pnpm start:client` Next will open at `http://localhost:3000/`
 
 `pnpm lint` to lint all projects
+
+From within project folders, running pnpm <command> from the respective `package.json` scripts will run the projects.
 
 ## Environment variables
 
@@ -25,12 +29,12 @@ AUTH_URL=http://localhost:8531 # internal url of your a12n-server for developmen
 AUTH_SECRET= # `npx auth secret` or `openssl rand -hex 32`
 ```
 
-In `server/.env` :
+In `@curveball/a12n-server/.env` :
 ```
 cp .env.example .env to copy defaults over to .env
 ```
 
-The first time you start the server, you will be prompted to create an admin user at `http://localhost:8531/`
+The first time you start the server, you will be prompted to create an admin user at `http://localhost:8531/`. Create an admin user.
 
 If you are running this locally, all details are set up in sqllite3 and not exposed to the internet. 
 
@@ -65,6 +69,8 @@ Select "authorization_code" and "refresh_token" as  grant types.
 Your client is now registered and you can use the client id in your client-side app.
 
 You can always change configurations by going to `http://localhost:8531/app/:app_id/client/:client_id/edit` or selecting Manage Clients from the `a12n-server` dashboard.
+
+1. Update your `.env` file with `NEXTAUTH_CLIENT_ID` and `NEXTAUTH_CLIENT_SECRET` values.
 
 # Related Reading
 
