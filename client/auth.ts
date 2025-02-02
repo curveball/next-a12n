@@ -9,11 +9,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     {
       id: "a12n-server", // signIn("my-provider") and will be part of the callback URL
       name: "a12n-server", // optional, theoretically used on the default login page as the button text.
-      type: "oauth",
+      type: "oidc",
       issuer: process.env.NEXTAUTH_URL,
       clientId: process.env.NEXTAUTH_CLIENT_ID, 
       clientSecret: process.env.NEXTAUTH_SECRET, 
-      wellKnown: process.env.NEXTAUTH_URL + "/.well-known/oauth-authorization-server",
+      authorization: process.env.NEXTAUTH_URL + "/authorize",
+      wellKnown: process.env.NEXTAUTH_URL + "/.well-known/openid-configuration",
     }
   ],
     pages: {

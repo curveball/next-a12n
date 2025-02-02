@@ -2,10 +2,10 @@ import { login } from "../actions/login";
 
 export default async function Page() {
     return (
-        <div>
-            <form action={login}>
-                <button type="submit">Sign In</button>
-            </form>
-        </div>
+
+        <form action={login} id="login">
+            <button type="submit" className="text-center hover:cursor-pointer w-auto px-3 py-2 rounded-md bg-green-400">Sign In</button>
+        </form>
+
     )
 }

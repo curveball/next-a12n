@@ -10,5 +10,7 @@ export async function login() {
         if (error instanceof AuthError) {
             return redirect(`${process.env.NEXT_ERROR_URL}?error=${error.type}`)
         }
+    } finally {
+        return redirect(`${process.env.NEXTAUTH_URL}/api/auth/signin/a12n-server`)
     }
 }
