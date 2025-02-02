@@ -41,7 +41,7 @@ The following instructions are intended for running a client app and `a12n-serve
 
 1. Go to `http://localhost:8531/app/new` to register a new app as client. 
 
-![screenshot of page for registering a new client-side application on a12n-server](./create-new-client-2.png)
+![screenshot of page for registering a new client-side application on a12n-server](./docs/img/create-new-client-2.png)
 
 http://localhost:8531/app/:app_id/client
 
@@ -55,8 +55,7 @@ The URL is used to redirect the user back to the client after authentication.
 
 1. You'll be directed to configure the client.
 
-![screenshot of Edit OAuth2 Client page in a12n-server](./create-new-client-2.png)
-http://localhost:8531/app/:app_id/client
+![screenshot of Edit OAuth2 Client page in a12n-server](./docs/img/create-new-client-2.png)
 
 Select "authorization_code" and "refresh_token" as  grant types.
 
