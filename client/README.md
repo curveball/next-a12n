@@ -4,10 +4,22 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with:
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+pnpm install
+```
+
+Run the development server:
 
 ```bash
 pnpm dev
+```
+
+Update `@curveball/a12n-server` submodule:
+
+```bash
+git submodule update --rebase
 ```
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

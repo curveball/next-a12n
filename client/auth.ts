@@ -2,22 +2,23 @@
 
 import NextAuth from "next-auth";
 
+console.log(process.env.A12N_URL);
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: true,
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET,
   providers: [
     {
-      id: "a12n-server", // signIn("my-provider") and will be part of the callback URL
-      name: "a12n-server", // optional, theoretically used on the default login page as the button text.
+      id: "a12n-server",
+      name: "a12n-server",
       type: "oidc",
-      issuer: process.env.NEXTAUTH_URL,
-      clientId: process.env.NEXTAUTH_CLIENT_ID, 
-      clientSecret: process.env.NEXTAUTH_SECRET, 
-      authorization: process.env.NEXTAUTH_URL + "/authorize",
-      wellKnown: process.env.NEXTAUTH_URL + "/.well-known/openid-configuration",
+      issuer: process.env.A12N_URL,
+      clientId: process.env.A12N_CLIENT_ID, 
+      clientSecret: process.env.A12N_SECRET, 
     }
   ],
-    pages: {
-      signIn: "/login", // map to a custom front end login url 
+  pages: {
+    //signIn: "/login", // map to a custom front end login url,
+    //signOut: "/logout", // map to a custom front end logout url,
     },
   })
