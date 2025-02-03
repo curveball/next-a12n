@@ -11,6 +11,6 @@ export async function login() {
             return redirect(`${process.env.A12N_URL}/login?continue=`)
         }
     } finally {
-        return redirect(`${process.env.A12N_URL} /api/auth / signin / a12n - server`)
+        return redirect(`${process.env.A12N_URL}/api/auth/signin/a12n-server`)
     }
 }
