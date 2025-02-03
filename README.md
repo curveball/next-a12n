@@ -49,8 +49,7 @@ In `@curveball/a12n-server/.env` :
 cp .env.example .env 
 ```
 
-This will configure the server to use a sqlite database, which is fine for
-dev environments, but not intended for production use.
+This will configure the server to use a sqlite database, which is fine for dev environments, but not intended for production use.
 
 After the server is started, head over to `http://localhost:8531/`, which will prompt you to create an admin user.
 
@@ -66,7 +65,7 @@ For next-auth to work, you need to obtain a OAuth2 client id and secret. To quic
 http://localhost:8531/app/new?nickname=MyNextApp&allowedGrantTypes=authorization_code,refresh_token&redirectUris=http://localhost:3000/api/auth/callback/a12n-server&url=http://localhost:3000/&clientId=nextjs-app
 ```
 
-Our manually create the client by following the steps below:
+Or manually create the client by following the steps below:
 
 1. Go to `http://localhost:8531/app/new` to register a new app as client. 
 
@@ -95,3 +94,23 @@ Your client is now registered and you can use the client id in your client-side 
 You can always change configurations by going to `http://localhost:8531/app/:app_id/client/:client_id/edit` or selecting Manage Clients from the `a12n-server` dashboard.
 
 1. Update your `.env` file with `NEXTAUTH_CLIENT_ID` and `NEXTAUTH_CLIENT_SECRET` values.
+
+## Maintenance
+
+Updating `@curveball/a12n-server` submodule:
+
+```bash
+# initialize and update the submodule
+git submodule update --remote
+# switch to the submodule directory
+cd a12n-server
+# pull the latest changes for the submodule
+git pull origin main
+
+# return to root of project
+cd ..
+# add the submodule
+git add a12n-server
+git commit -m "Update submodule"
+git push origin main
+```

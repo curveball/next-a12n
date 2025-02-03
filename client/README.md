@@ -16,12 +16,6 @@ Run the development server:
 pnpm dev
 ```
 
-Update `@curveball/a12n-server` submodule:
-
-```bash
-git submodule update --rebase
-```
-
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 
