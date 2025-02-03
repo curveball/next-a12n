@@ -22,27 +22,45 @@ From within project folders, running pnpm <command> from the respective `package
 
 In `client/.env` :
 ```
-NEXTAUTH_URL=http://localhost:8531 # canonical url of your website
-NEXTAUTH_CLIENT_ID= # client id from your a12n-server
-NEXTAUTH_ERROR_URL=http://localhost:8531/login?continue= # url to redirect to on login error
-AUTH_URL=http://localhost:8531 # internal url of your a12n-server for development purposes
+A12N_URL=http://localhost:8531 # Where your a12n-server is hosted
+A12N_CLIENT_ID= # client id from your a12n-server
+A12N_CLIENT_SECRET= # client id from your a12n-server
 AUTH_SECRET= # `npx auth secret` or `openssl rand -hex 32`
 ```
 
+
+## Setting up a12n-server
+
+### Environment variables
+
+To get started quickly, you can copy the default .env settings:
+
 In `@curveball/a12n-server/.env` :
 ```
-cp .env.example .env to copy defaults over to .env
+cp .env.example .env 
 ```
 
-The first time you start the server, you will be prompted to create an admin user at `http://localhost:8531/`. Create an admin user.
+This will configure the server to use a sqlite database, which is fine for
+dev environments, but not intended for production use.
 
-If you are running this locally, all details are set up in sqllite3 and not exposed to the internet. 
+After the server is started, head over to `http://localhost:8531/`, which will prompt you to create an admin user.
 
-If you for whatever reason lock yourself out or forget your admin password, you can start over by deleting the `a12n.sqlite` file.
+If you for whatever reason lock yourself out or forget your admin password, you can start over by deleting the
+`a12nserver.sqlite` file.
 
 ## Register a new client-side web app on `@curveball/a12n-server`
 
-The following instructions are intended for running a client app and `a12n-server` locally.
+For next-auth to work, you need to obtain a OAuth2 client id and secret. To quickly do this, you can open the
+following URL in your browser, which should take you through all the steps. Make note of the `client_id` and
+`client_secret` values, at the end of this process.
+
+```
+http://localhost:8531/app/new?nickname=MyNextApp&allowedGrantTypes=authorization_code,refresh_token&redirectUris=http://localhost:3000/api/auth/callback/a12n-server&url=http://localhost:3000/&clientId=nextjs-app
+```
+
+
+
+Our manually create the client by following the steps below:
 
 1. Go to `http://localhost:8531/app/new` to register a new app as client. 
 
@@ -64,6 +82,8 @@ The URL is used to redirect the user back to the client after authentication.
 
 Select "authorization_code" and "refresh_token" as  grant types.
 
+For valid redirect_urls make sure it includes: `http://localhost:3000/api/auth/callback/a12n-server`
+
 1. Click "Save"
 
 Your client is now registered and you can use the client id in your client-side app.
@@ -71,6 +91,9 @@ Your client is now registered and you can use the client id in your client-side 
 You can always change configurations by going to `http://localhost:8531/app/:app_id/client/:client_id/edit` or selecting Manage Clients from the `a12n-server` dashboard.
 
 1. Update your `.env` file with `NEXTAUTH_CLIENT_ID` and `NEXTAUTH_CLIENT_SECRET` values.
+
+
+
 
 # Related Reading
 

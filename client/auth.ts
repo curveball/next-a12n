@@ -2,22 +2,23 @@
 
 import NextAuth from "next-auth";
 
+console.log(process.env.A12N_URL);
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: true,
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET,
   providers: [
     {
       id: "a12n-server",
       name: "a12n-server",
       type: "oidc",
-      issuer: process.env.NEXTAUTH_URL,
-      clientId: process.env.NEXTAUTH_CLIENT_ID, 
-      clientSecret: process.env.NEXTAUTH_SECRET, 
-      authorization: process.env.NEXTAUTH_URL + "/authorize",
+      issuer: process.env.A12N_URL,
+      clientId: process.env.A12N_CLIENT_ID, 
+      clientSecret: process.env.A12N_SECRET, 
     }
   ],
   pages: {
-    signIn: "/login", // map to a custom front end login url,
-    signOut: "/logout", // map to a custom front end logout url,
+    //signIn: "/login", // map to a custom front end login url,
+    //signOut: "/logout", // map to a custom front end logout url,
     },
   })
