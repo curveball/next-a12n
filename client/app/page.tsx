@@ -1,10 +1,11 @@
 // index.tsx 
 import { auth } from "@/auth";
 import Link from "next/link";
+import SessionData from "./session-data";
 
 export default async function Index() {
     const session = await auth()
-
+    console.log(`::::: index page session::::: `, session)
     return (
         <div className="flex flex-col gap-6 px-4 py-8">
             <h1 className="text-3xl font-bold">Next.js a12n-server</h1>
@@ -18,7 +19,7 @@ export default async function Index() {
                     Current Session
                 </div>
                 <pre className="whitespace-pre-wrap break-all px-4 py-6">
-                    {JSON.stringify(session, null, 2)}
+                    <SessionData session={session} />
                 </pre>
             </div>
         </div>
