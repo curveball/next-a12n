@@ -37,11 +37,11 @@ Environment variables prefixed with `AUTH_` are used by `authjs/next-auth`. See 
 
 ### Environment variables
 
-To get started quickly, run `node ./bin/a12n-server` from the `a12n-server` directory.
+1. Run `node ./bin/a12n-server` from the `a12n-server` directory.
 
 This will configure the server to use a sqlite database, which is fine for dev environments, but not intended for production use.
 
-After the server is started, head over to `http://localhost:8531/`, which will prompt you to create an admin user.
+2. After the server is started, head over to `http://localhost:8531/`, which will prompt you to create an admin user.
 
 If you for whatever reason lock yourself out or forget your admin password, you can start over by deleting the `a12nserver.sqlite` file.
 
@@ -69,15 +69,15 @@ The `client_id` is used in the client to authenticate with the server.
 
 The client URL is used to redirect the user back to the client after authentication.
 
-1. You'll be directed to configure the client.
+2. You'll be directed to configure the client.
 
 ![screenshot of Edit OAuth2 Client page in a12n-server](./docs/img/add-oauth-client.png)
+  
+  Select "authorization_code" and "refresh_token" as  grant types.
+  
+  For valid redirect_urls make sure it includes: `http://localhost:3000/api/auth/callback/a12n-server`
 
-Select "authorization_code" and "refresh_token" as  grant types.
-
-For valid redirect_urls make sure it includes: `http://localhost:3000/api/auth/callback/a12n-server`
-
-1. Click "Add"
+3. Click "Add"
 
 Your client is now registered and you can use the `clientId` and `clientSecret` in your client-side app.
 
@@ -85,13 +85,13 @@ Your client is now registered and you can use the `clientId` and `clientSecret` 
 
 Save the values of `clientId` and `clientSecret` for the next step.
 
-You can always change configurations by going to `http://localhost:8531/app/:app_id/client/:client_id/edit` or selecting Manage Clients from the `a12n-server` dashboard.
+You can also add more apps by selecting "Manage Clients" from the `a12n-server` dashboard.
 
-1. Update your `.env` file with
+4. Update your `.env` file with: 
 `AUTH_A12N_ID` with the value for `client_id` 
 `AUTH_A12N_SECRET` with the `client_secret` value.
 
-1. Restart your client and server.
+5. Restart your client and server to continue development.
 
 ## Maintenance
 
