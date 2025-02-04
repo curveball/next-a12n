@@ -1,6 +1,6 @@
 
 "use server"
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { redirect } from "next/navigation";
@@ -20,7 +20,11 @@ export async function login() {
         }
         throw error
     } finally {
-        console.log(`::::: login finally::::: `)
-
+        const session = await auth()
+        if (session?.user) {
+            // Login success, redirect to home
+            return redirect("/")
+        }
+        redirect("/login")
     }
 }
