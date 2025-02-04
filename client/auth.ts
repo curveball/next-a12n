@@ -1,6 +1,6 @@
 /** @link See https://authjs.dev/getting-started/migrating-to-v5#configuration-file */
 
-import NextAuth from "next-auth";
+import NextAuth, { Account, Profile } from "next-auth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: process.env.NODE_ENV !== "production",
@@ -17,7 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   session: { strategy: "jwt" },
   pages: {
-    signIn: "/login",
+    signIn: "/login"
   }
   })
 
@@ -28,5 +28,7 @@ declare module "next-auth" {
       email: string;
       image: string;
     }
+    profile: Profile;
+    account: Account
   }
 }
