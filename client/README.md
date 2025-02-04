@@ -4,7 +4,13 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with:
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+pnpm install
+```
+
+Run the development server:
 
 ```bash
 pnpm dev
