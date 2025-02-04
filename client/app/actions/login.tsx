@@ -1,34 +1,26 @@
+
+"use server"
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
-import { getRedirectStatusCodeFromError, getRedirectTypeFromError } from "next/dist/client/components/redirect";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { redirect } from "next/navigation";
 
 export async function login() {
-    "use server"
+
     try {
-        const authResult = await signIn("a12n-server")
-        console.info(`::::: authResult::::: `, authResult)
+        await signIn("a12n-server");
     } catch (error) {
 
-        if ('digest' in error) {
-            const errorType = getRedirectTypeFromError(error);
-            const errorCode = getRedirectStatusCodeFromError(error);
-            redirect(`/error?error=${errorType}&code=${errorCode}`);
-        }
-        if (error instanceof Error) {
-            const { type, cause } = error as AuthError;
-            switch (type) {
-                case "InvalidCallbackUrl":
-                    return "Invalid callback URL.";
-                case "CredentialsSignin":
-                    return "Invalid credentials.";
-                case "CallbackRouteError":
-                    return cause?.err?.toString();
-                default:
-                    redirect(`/error?error=${type}`);
-            }
+        if (isRedirectError(error)) {
+            console.error(`::::: redirect error::::: `, error)
         }
 
-        throw error;
+        if (error instanceof AuthError) {
+            return redirect(`${process.env.NEXT_URL}?error=${error.type}`)
+        }
+        throw error
+    } finally {
+        console.log(`::::: login finally::::: `)
+
     }
 }
