@@ -69,31 +69,39 @@ Or manually create the client by following the steps below:
 
 1. Go to `http://localhost:8531/app/new` to register a new app as client. 
 
-![screenshot of page for registering a new client-side application on a12n-server](./docs/img/create-new-client-2.png)
+![screenshot of page for registering a new client-side application on a12n-server](./docs/img/create-new-app.png)
 
 You will need to provide the:
-- client name (this will become your `NEXTAUTH_CLIENT_ID`) 
+- client name (this will become known as the `nickname` on a12n-server) 
 - client URL (`NEXTAUTH_URL`). 
 
-The client id is used in the client to authenticate with the server.
+The `client_id` is used in the client to authenticate with the server.
 
-The URL is used to redirect the user back to the client after authentication.
+The client URL is used to redirect the user back to the client after authentication.
 
 1. You'll be directed to configure the client.
 
-![screenshot of Edit OAuth2 Client page in a12n-server](./docs/img/create-new-client-2.png)
+![screenshot of Edit OAuth2 Client page in a12n-server](./docs/img/add-oauth-client.png)
 
 Select "authorization_code" and "refresh_token" as  grant types.
 
 For valid redirect_urls make sure it includes: `http://localhost:3000/api/auth/callback/a12n-server`
 
-1. Click "Save"
+1. Click "Add"
 
-Your client is now registered and you can use the client id in your client-side app.
+Your client is now registered and you can use the `clientId` and `clientSecret` in your client-side app.
+
+![Screenshot of view after a new client is added with Oauth2 configurations](./docs/img/after-adding-client.png)
+
+Save the values of `clientId` and `clientSecret` for the next step.
 
 You can always change configurations by going to `http://localhost:8531/app/:app_id/client/:client_id/edit` or selecting Manage Clients from the `a12n-server` dashboard.
 
-1. Update your `.env` file with `NEXTAUTH_CLIENT_ID` and `NEXTAUTH_CLIENT_SECRET` values.
+1. Update your `.env` file with
+`AUTH_A12N_ID` with the value for `client_id` 
+`AUTH_A12N_SECRET` with the `client_secret` value.
+
+1. Restart your client and server.
 
 ## Maintenance
 
