@@ -10,25 +10,31 @@ Pre-requisites:
 
 ## Getting Started
 
+Install packages
+
 From this repo root: 
 
 `pnpm install` to install dependencies.
 
 `git submodule update --rebase` to update the `@curveball/a12n-server` submodule.
 
+## Running Local Dev Environment
+
 In separate Terminal tabs:
 
 `pnpm start:server` to start server (will open at `http://localhost:8531/`) 
 
-`pnpm start:client` Next will open at `http://localhost:3000/`
+`pnpm start:client` will open Next at `http://localhost:3000/`
 
 `pnpm lint` to lint all projects
 
-From within project folders, running pnpm <command> from the respective `package.json` scripts will run the projects.
+From inside each project, running pnpm <command> from the respective `package.json` scripts will also act on each project.
 
 ## Environment variables
 
-`cp .env.example .env` to copy the default environment variables.
+`cp .env.local.example .env` to copy the default environment variables.
+
+Note: you can delete `.env.local.example` or comment out all variables in `.env.local.example` to avoid namespace conflicts while running locally.
 
 Environment variables prefixed with `AUTH_` are used by `authjs/next-auth`. See ["Environment Variable Inference"](https://authjs.dev/reference/nextjs#:~:text=next%2Dauth%40beta-,Environment%20variable%20inference,-NEXTAUTH_URL%20and%20NEXTAUTH_SECRET)
 
@@ -37,11 +43,18 @@ Environment variables prefixed with `AUTH_` are used by `authjs/next-auth`. See 
 
 ### Environment variables
 
-1. Run `node ./bin/a12n-server` from the `a12n-server` directory.
+1. Generate the server env variables
+`cd a12n-server`
+`node ./bin/a12n-server`
 
-This will configure the server to use a sqlite database, which is fine for dev environments, but not intended for production use.
+This creates a .env with a JWT private key.
 
-2. After the server is started, head over to `http://localhost:8531/`, which will prompt you to create an admin user.
+The default settings are configured to use a sqlite database, which is fine for dev environments, but not intended for production use.
+
+3. Start the server:
+ `pnpm start:server` from workspace root or `pnpm run start` inside a12n-server
+
+Opening `http://localhost:8531` will prompt you to create an admin user. 
 
 If you for whatever reason lock yourself out or forget your admin password, you can start over by deleting the `a12nserver.sqlite` file.
 
@@ -73,9 +86,9 @@ The client URL is used to redirect the user back to the client after authenticat
 
 ![screenshot of Edit OAuth2 Client page in a12n-server](./docs/img/add-oauth-client.png)
   
-  Select "authorization_code" and "refresh_token" as  grant types.
+Select "authorization_code" and "refresh_token" as  grant types.
   
-  For valid redirect_urls make sure it includes: `http://localhost:3000/api/auth/callback/a12n-server`
+For valid redirect_urls make sure you entered: `http://localhost:3000/api/auth/callback/a12n-server`
 
 3. Click "Add"
 
@@ -83,7 +96,7 @@ Your client is now registered and you can use the `clientId` and `clientSecret` 
 
 ![Screenshot of view after a new client is added with Oauth2 configurations](./docs/img/after-adding-client.png)
 
-Save the values of `clientId` and `clientSecret` for the next step.
+Hang onto the values of `clientId` and `clientSecret` for the next step.
 
 You can also add more apps by selecting "Manage Clients" from the `a12n-server` dashboard.
 
