@@ -28,13 +28,8 @@ From within project folders, running pnpm <command> from the respective `package
 
 ## Environment variables
 
-In `client/.env` :
-```
-A12N_URL=http://localhost:8531 # Where your a12n-server is hosted
-A12N_CLIENT_ID= # client id from your a12n-server
-A12N_CLIENT_SECRET= # client id from your a12n-server
-AUTH_SECRET= # `npx auth secret` or `openssl rand -hex 32`
-```
+`cp .env.example .env` to copy the default environment variables.
+
 Environment variables prefixed with `AUTH_` are used by `authjs/next-auth`. See ["Environment Variable Inference"](https://authjs.dev/reference/nextjs#:~:text=next%2Dauth%40beta-,Environment%20variable%20inference,-NEXTAUTH_URL%20and%20NEXTAUTH_SECRET)
 
 
@@ -42,12 +37,7 @@ Environment variables prefixed with `AUTH_` are used by `authjs/next-auth`. See 
 
 ### Environment variables
 
-To get started quickly, you can copy the default .env settings:
-
-In `@curveball/a12n-server/.env` :
-```
-cp .env.example .env 
-```
+To get started quickly, run `node ./bin/a12n-server` from the `a12n-server` directory.
 
 This will configure the server to use a sqlite database, which is fine for dev environments, but not intended for production use.
 

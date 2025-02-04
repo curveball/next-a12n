@@ -10,7 +10,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       id: "a12n-server",
       name: "a12n-server",
       type: "oidc",
-      issuer: process.env.AUTH_A12N_URL,
+      issuer: process.env.AUTH_A12N_ISSUER,
       clientId: process.env.AUTH_A12N_ID, 
       clientSecret: process.env.AUTH_A12N_SECRET,
     }
@@ -18,8 +18,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
-    signOut: "/logout",
-    error: "/login",
   }
   })
 
