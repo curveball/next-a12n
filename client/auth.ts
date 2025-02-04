@@ -2,23 +2,33 @@
 
 import NextAuth from "next-auth";
 
-console.log(process.env.A12N_URL);
-
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  debug: true,
+  debug: process.env.NODE_ENV !== "production",
   secret: process.env.AUTH_SECRET,
   providers: [
     {
       id: "a12n-server",
       name: "a12n-server",
       type: "oidc",
-      issuer: process.env.A12N_URL,
-      clientId: process.env.A12N_CLIENT_ID, 
-      clientSecret: process.env.A12N_SECRET, 
+      issuer: process.env.AUTH_A12N_URL,
+      clientId: process.env.AUTH_A12N_ID, 
+      clientSecret: process.env.AUTH_A12N_SECRET,
     }
   ],
+  session: { strategy: "jwt" },
   pages: {
-    //signIn: "/login", // map to a custom front end login url,
-    //signOut: "/logout", // map to a custom front end logout url,
-    },
+    signIn: "/login",
+    signOut: "/logout",
+    error: "/login",
+  }
   })
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      name: string;
+      email: string;
+      image: string;
+    }
+  }
+}
