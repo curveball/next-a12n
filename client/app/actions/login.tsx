@@ -16,7 +16,7 @@ export async function login() {
         }
 
         if (error instanceof AuthError) {
-            return redirect(`${process.env.NEXT_URL}?error=${error.type}`)
+            return redirect(`${process.env.NEXTAUTH_URL}?error=${error.type}`)
         }
         throw error
     } finally {
