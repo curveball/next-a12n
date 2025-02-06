@@ -1,6 +1,9 @@
 # a12n Oauth2 Authorization Code Flow
 
-## Authorization 
+## Authorization
+
+Note: requesting the following is handled by `next-auth` `authorize` callback under the hood on this project 
+
 Referring to [a12n-server/src/oauth2/controller/authorize.ts](https://github.com/curveball/a12n-server/blob/main/src/oauth2/controller/authorize.ts)
 
 - POST `/authorize&<params>`
