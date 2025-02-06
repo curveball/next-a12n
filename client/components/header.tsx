@@ -16,8 +16,8 @@ type NavigationProps = NavigationItem[]
 
 const navigation = [
   { href: '/', name: 'Home', current: true },
-  { href: '/login', name: 'Login', current: false, onclick: login },
-  { href: '/signup', name: 'Register', current: false, onclick: register },
+  { href: `${process.env.AUTH_A12N_ISSUER}/login`, name: 'Login', current: false, onclick: login },
+  { href: `${process.env.AUTH_A12N_ISSUER}/register`, name: 'Register', current: false, onclick: register },
 ] as NavigationProps
 
 export default async function Header() {
