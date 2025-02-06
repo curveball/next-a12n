@@ -1,6 +1,9 @@
 # @curveball/a12n-server and Next.js
 
-This is a simple example of how to use `@curveball/a12n-server` with a Next.js project using  OAuth2 authorization code flow and `next-auth@beta`/`authjs/dev` v5 [^1].
+This is a simple example of how to use `@curveball/a12n-server` with a Next.js project using:
+- OAuth2 authorization code flow 
+- OIDC 
+- `next-auth@beta`/`authjs/dev` v5.
 
 If you've been using `next-auth` v4, checkout their ["Upgrade Guide (NextAuth.js v5)"](https://authjs.dev/getting-started/migrating-to-v5).
 
@@ -10,15 +13,21 @@ Pre-requisites:
 
 ## Getting Started
 
-Install packages
+### Install packages
 
-From this repo root: 
+From this workspace root: 
 
 `pnpm install` to install dependencies.
 
-`git submodule update --rebase` to update the `@curveball/a12n-server` submodule.
+pull the latest changes for the `@curveball/a12n-server` submodule:
 
-## Running Local Dev Environment
+```bash
+# initialize and update the submodule
+git submodule init
+git submodule update --rebase
+```
+
+### Running Local Dev Environment
 
 In separate Terminal tabs:
 
@@ -28,9 +37,9 @@ In separate Terminal tabs:
 
 `pnpm lint` to lint all projects
 
-From inside each project, running pnpm <command> from the respective `package.json` scripts will also act on each project.
+From inside each project, running `pnpm <command>` for respective `package.json` scripts will also act on each project.
 
-## Environment variables
+### Environment variables
 
 `cp .env.local.example .env` to copy the default environment variables.
 
@@ -47,25 +56,25 @@ Environment variables prefixed with `AUTH_` are used by `authjs/next-auth`. See 
 `cd a12n-server`
 `node ./bin/a12n-server`
 
-This creates a .env with a JWT private key.
+This creates a .env with a JWT private key and also autostarts the server.
 
 The default settings are configured to use a sqlite database, which is fine for dev environments, but not intended for production use.
 
-3. Start the server:
- `pnpm start:server` from workspace root or `pnpm run start` inside a12n-server
-
-Opening `http://localhost:8531` will prompt you to create an admin user. 
+2. Opening `http://localhost:8531` will prompt you to create an admin user. 
 
 If you for whatever reason lock yourself out or forget your admin password, you can start over by deleting the `a12nserver.sqlite` file.
 
-## Register a new client-side web app on `@curveball/a12n-server`
+### Register a new client-side web app on `@curveball/a12n-server`
 
-For next-auth to work, you need to obtain a OAuth2 client id and secret. To quickly do this, you can open the following URL in your browser, which should take you through all the steps. 
+For next-auth to work, you need to obtain a OAuth2 client id and secret. 
+
+To quickly do this, you can open the following URL in your browser, which should take you through all the steps. 
 
 🗒️ Make note of the `client_id` and `client_secret` values, at the end of this process.
 
 ```
-http://localhost:8531/app/new?nickname=MyNextApp&allowedGrantTypes=authorization_code,refresh_token&redirectUris=http://localhost:3000/api/auth/callback/a12n-server&url=http://localhost:3000/&clientId=nextjs-app
+http://localhost:8531/app/new?nickname=MyNextApp&allowedGrantTypes=authorization_code,refresh_token
+&redirectUris=http://localhost:3000/api/auth/callback/a12n-server&url=http://localhost:3000/&clientId=nextjs-app
 ```
 
 Or manually create the client by following the steps below:
@@ -88,9 +97,9 @@ The client URL is used to redirect the user back to the client after authenticat
   
 Select "authorization_code" and "refresh_token" as  grant types.
   
-For valid redirect_urls make sure you entered: `http://localhost:3000/api/auth/callback/a12n-server`
+For a valid `redirectUrl` make sure you entered: `http://localhost:3000/api/auth/callback/a12n-server`
 
-3. Click "Add"
+1. Click "Add"
 
 Your client is now registered and you can use the `clientId` and `clientSecret` in your client-side app.
 
@@ -108,20 +117,35 @@ You can also add more apps by selecting "Manage Clients" from the `a12n-server` 
 
 ## Maintenance
 
-Updating `@curveball/a12n-server` submodule:
+### Updating `@curveball/a12n-server` submodule
+
+Note: this setup is intended for easy development and scaffolding. 
+This is not a recommended setup for production environments.
+
+For first-time setup
 
 ```bash
+# For first-time setup:
 # initialize and update the submodule
-git submodule update --remote
+git submodule init
+git submodule update --rebase
+
+# For updates
 # switch to the submodule directory
 cd a12n-server
 # pull the latest changes for the submodule
 git pull origin main
+```
 
+If you made changes and want to commit them 
+
+```bash
 # return to root of project
 cd ..
 # add the submodule
 git add a12n-server
 git commit -m "Update submodule"
+## this updates the submodule in the parent repo, 
+## not the original @curveball/a12n-server
 git push origin main
 ```
