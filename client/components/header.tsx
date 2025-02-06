@@ -1,5 +1,7 @@
 'use server'
 
+import { login } from '@/app/actions/login'
+import { register } from '@/app/actions/register'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
@@ -7,14 +9,15 @@ type NavigationItem = {
   href: string
   name: string
   current: boolean
+  onclick?: () => void
 }
 
 type NavigationProps = NavigationItem[]
 
 const navigation = [
   { href: '/', name: 'Home', current: true },
-  { href: '/login', name: 'Login', current: false },
-  { href: '/signup', name: 'Register', current: false },
+  { href: '/login', name: 'Login', current: false, onclick: login },
+  { href: '/signup', name: 'Register', current: false, onclick: register },
 ] as NavigationProps
 
 export default async function Header() {
@@ -38,6 +41,7 @@ export default async function Header() {
                   <a
                     key={item.name}
                     href={item.href}
+                    onClick={item.onclick}
                     aria-current={item.current ? 'page' : undefined}
                     className={
                       item.current
@@ -61,6 +65,7 @@ export default async function Header() {
               key={item.name}
               as="a"
               href={item.href}
+              onClick={item.onclick}
               aria-current={item.current ? 'page' : undefined}
               className="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900">
               {item.name}
