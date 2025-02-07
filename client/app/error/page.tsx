@@ -13,13 +13,22 @@ enum Error {
     Default = "Default",
 }
 
-const errorMap = {
+const errorMap: Record<Error, React.ReactNode> = {
     [Error.Configuration]: (
         <p>
             There was a problem when trying to authenticate. Please contact us if this
             error persists. Unique error code:
             <code className="rounded-sm bg-slate-100 p-1 text-xs">Configuration</code>
         </p>
+    ),
+    [Error.AccessDenied]: (
+        <p>Access was denied. Please try again or contact support.</p>
+    ),
+    [Error.Verification]: (
+        <p>Verification failed. Please try again.</p>
+    ),
+    [Error.Default]: (
+        <p>An unknown error occurred. Please try again.</p>
     ),
 }
 
