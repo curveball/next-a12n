@@ -4,7 +4,9 @@
 
 Note: requesting the following is handled by `next-auth` `authorize` callback under the hood on this project 
 
-Referring to [a12n-server/src/oauth2/controller/authorize.ts](https://github.com/curveball/a12n-server/blob/main/src/oauth2/controller/authorize.ts)
+See 
+
+The following are parameters or body data that can be sent to each endpoint.
 
 - POST `/authorize&<params>`
 query parameters:
@@ -15,7 +17,29 @@ query parameters:
     "responseType": "code",
     "scope"?: string,
     "state"?: string
+````
+
+- POST `/authorize`
+
 ```
+Headers:
+  A12N: <cookie>
+  content-type: application/x-www-form-urlencoded
+
+Body:
+{
+  response_type: code,
+  code: string,
+  redirect_uri: http://localhost:3000/api/auth/callback/a12n-server,
+  client_id: string,
+  client_secret: string
+  code_challenge: string
+  code_challenge_method: S256
+  scope: 'openid email profile'
+  state: string // AUTH_SECRET value
+}
+```
+
 ### Responses
 
 - 302 Redirect
@@ -48,6 +72,21 @@ Query Parameters:
   "client_id": string,
 ``` 
 
+```
+POST http://localhost:8531/token
+Headers:
+ A12N: <cookie>
+ content-type: application/x-www-form-urlencoded
+
+{
+  "grant_type": "authorization_code",
+  "code": "BqOOXyI2R5ju7DYDjx0hgMR21BIIzqF0QWvr2j_VUfc",
+  "redirect_uri": "http://localhost:3000/api/auth/callback/a12n-server",
+  "client_id": "nextjs-app",
+  "client_secret": "secret-token:ytpMV93aixlVgBEyBGS9Ruy7DxaQrYFrqeIVYT_3NRc"
+}
+```
+
 ### Responses
 
 - 302: Redirect
@@ -60,4 +99,17 @@ Query Parameters:
             &token_type=Bearer
             &expires_in=<expires_in>
             &state=<state>
+```
+
+```
+
+Not sent to user-agent, but available in server logs or Bruno
+```
+{
+  "access_token": string,
+  "token_type": "bearer",
+  "expires_in": 600,
+  "refresh_token": string,
+  "id_token": string
+}
 ```
