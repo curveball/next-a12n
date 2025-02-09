@@ -5,14 +5,6 @@ import NextAuth, { Account, Profile } from "next-auth";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: process.env.NODE_ENV !== "production",
   secret: process.env.AUTH_SECRET,
-  callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-  
-      console.log(`signIn `, user, account, profile, email, credentials)
-      // if signin successful, redirect to home, otherwise redirect to login page
-      return user !== null ? `${process.env.NEXTAUTH_URL}` : `${process.env.AUTH_A12N_ISSUER}/login`
-    },
-  },
   providers: [
     {
       id: "a12n-server",
@@ -21,7 +13,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       issuer: process.env.AUTH_A12N_ISSUER,
       clientId: process.env.AUTH_A12N_ID,
       clientSecret: process.env.AUTH_A12N_SECRET,
-    },
+      authorization: {
+        params: {
+          redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/a12n-server`
+        }
+      },
+      profile: (profile) => {
+        return {
+          ...profile,
+        }
+      } 
+    }
   ],
   session: { strategy: "jwt" },
 })
