@@ -6,7 +6,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 type NavigationItem = {
-  href: string
+  href?: string
   name: string
   current: boolean
   onclick?: () => void
@@ -21,6 +21,7 @@ const navigation = [
 ] as NavigationProps
 
 export default async function Header() {
+  const authNavItems = ['Login', 'Register']
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -38,10 +39,17 @@ export default async function Header() {
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {navigation.map((item) => (
-                  <a
+                  authNavItems.includes(item.name) ?
+                    <form action={item.onclick} key={item.name} className={
+                      item.current
+                        ? 'px-3 bg-gray-900 text-white font-medium rounded-md'
+                        : 'text-gray-300 hover:text-white '
+                    }>
+                      <button type="submit">{item.name}</button>
+                    </form> : <a
                     key={item.name}
                     href={item.href}
-                    onClick={item.onclick}
+                      onClick={item.onclick}
                     aria-current={item.current ? 'page' : undefined}
                     className={
                       item.current
