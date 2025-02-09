@@ -4,24 +4,24 @@ import { login } from '@/app/actions/login'
 import { register } from '@/app/actions/register'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { signOut } from 'next-auth/react'
+import NavItem, { NavigationItemProps } from './nav-item'
 
-type NavigationItem = {
-  href?: string
-  name: string
-  current: boolean
-  onclick?: () => void
-}
+type NavigationProps = NavigationItemProps[]
 
-type NavigationProps = NavigationItem[]
-
-const navigation = [
-  { href: '/', name: 'Home', current: true },
-  { href: `${process.env.AUTH_A12N_ISSUER}/login`, name: 'Login', current: false, onclick: login },
-  { href: `${process.env.AUTH_A12N_ISSUER}/register`, name: 'Register', current: false, onclick: register },
+const navigationItems = [
+  { href: '/', name: 'Home', current: true, variant: 'link' },
+  { href: `${process.env.AUTH_A12N_ISSUER}/login`, name: 'Login', current: false, onclick: login, variant: 'auth' },
+  { href: `${process.env.AUTH_A12N_ISSUER}/register`, name: 'Register', current: false, onclick: register, variant: 'auth' },
+  {
+    href: `${process.env.AUTH_A12N_ISSUER}/logout`, name: 'Logout', current: false,
+    onclick: signOut, variant: 'auth'
+  }
 ] as NavigationProps
 
+
 export default async function Header() {
-  const authNavItems = ['Login', 'Register']
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -38,27 +38,8 @@ export default async function Header() {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  authNavItems.includes(item.name) ?
-                    <form action={item.onclick} key={item.name} className={
-                      item.current
-                        ? 'px-3 bg-gray-900 text-white font-medium rounded-md'
-                        : 'text-gray-300 hover:text-white '
-                    }>
-                      <button type="submit">{item.name}</button>
-                    </form> : <a
-                    key={item.name}
-                    href={item.href}
-                      onClick={item.onclick}
-                    aria-current={item.current ? 'page' : undefined}
-                    className={
-                      item.current
-                        ? 'px-3 bg-gray-900 text-white font-medium rounded-md'
-                        : 'text-gray-300 hover:text-white '
-                    }
-                  >
-                    {item.name}
-                  </a>
+                {navigationItems.map((item) => (
+                  <NavItem item={item} key={item.href} /> 
                 ))}
               </div>
             </div>
@@ -68,7 +49,7 @@ export default async function Header() {
 
       <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pt-2 pb-3">
-          {navigation.map((item) => (
+          {navigationItems.map((item) => (
             <DisclosureButton
               key={item.name}
               as="a"
@@ -78,6 +59,7 @@ export default async function Header() {
               className="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900">
               {item.name}
             </DisclosureButton>
+
           ))}
         </div>
       </DisclosurePanel>
